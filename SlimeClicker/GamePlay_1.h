@@ -1,18 +1,20 @@
 #ifndef GAMEPLAY_1_H
 #define GAMEPLAY_1_H
 
+#include <SFML/Graphics.hpp>
+
 #include "StateMachine.h"
 
 namespace Slimes
 {
 
-	void initializeGame(GameStateMachine& gameState);
+	void InitializeGame(GameStateMachine& gameState);
 
-	void updateGame(GameStateMachine& gameState);
+	void UpdateGame(GameStateMachine& gameState);
 
-	void drawGame();
+	void DrawGame(sf::RenderWindow& window);
 
-	void closeGame();
+	void CloseGame();
 
 } //namespace Slimes
 
