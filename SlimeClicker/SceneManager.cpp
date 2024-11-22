@@ -45,13 +45,12 @@ void runProgram()
 
 			Update(event);
 
-
+			Draw(window);
 			// "close requested" event: we close the window
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
 		
-		Draw(window);
 	}
 	
 	close();

@@ -10,6 +10,8 @@ namespace Slimes
 
 	void InitializeGame(GameStateMachine& gameState);
 
+	void InitializeAllSlimes();
+
 	void UpdateGame(GameStateMachine& gameState);
 
 	void DrawGame(sf::RenderWindow& window);

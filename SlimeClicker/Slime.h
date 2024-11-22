@@ -15,7 +15,7 @@ struct Slime
 };
 
 void InitializeSlime(Slime& slime, float radius, sf::Vector2f position, sf::Vector2f velocity);
-void UpdateSlime(Slime& slime, float deltaTime);
+void UpdateSlime(Slime& slime);
 void DrawSlime(Slime& slime, sf::RenderWindow& window);
 
 } // namespace Slimes

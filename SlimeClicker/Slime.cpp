@@ -15,11 +15,11 @@ void InitializeSlime(Slime& slime, float radius, sf::Vector2f position, sf::Vect
     slime.isActive = true;
 }
 
-void UpdateSlime(Slime& slime, float deltaTime) 
+void UpdateSlime(Slime& slime) 
 {
     if (slime.isActive)
     {
-        slime.pos += slime.velocity * deltaTime;
+        slime.pos += slime.velocity; // * deltaTime
         slime.circle.setPosition(slime.pos);
 
         float radius = slime.circle.getRadius();
