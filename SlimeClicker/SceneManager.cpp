@@ -17,7 +17,7 @@ static void Update(sf::Event event);
 
 static void Draw(sf::RenderWindow& window);
 
-static void close();
+static void Close();
 
 
 void runProgram()
@@ -45,15 +45,15 @@ void runProgram()
 
 			Update(event);
 
-			Draw(window);
 			// "close requested" event: we close the window
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
 		
+		Draw(window);
 	}
 	
-	close();
+	Close();
 }
 
 static void Initialize()
@@ -145,7 +145,7 @@ static void Draw(sf::RenderWindow& window)
 
 }
 
-static void close()
+static void Close()
 {
 	//CloseWindow();
 }
