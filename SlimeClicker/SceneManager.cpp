@@ -1,5 +1,9 @@
 #include "SceneManager.h"
+#include "GamePlay_1.h"
+
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+
 #include <iostream>
 
 namespace Slimes
@@ -7,58 +11,62 @@ namespace Slimes
 
 GameStateMachine gameState;
 
-static void initialize();
+static void Initialize();
 
-static void update(sf::Event event);
+static void Update(sf::Event event);
 
-static void draw();
+static void Draw(sf::RenderWindow& window);
 
 static void close();
 
 
 void runProgram()
 {
-	sf::Window window(sf::VideoMode(800, 600), "SlimeClicker");
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SlimeClicker");
 	window.setSize(sf::Vector2u(800, 600));
 	window.setFramerateLimit(60);
 
+
+	Initialize();
+
 	while (window.isOpen())
 	{
+		// El evento es como una entidad que maneja todo, a el le preguntas cosas como:
+		// Evento, se apreto una tecla?  
+		// Evento, se apreto el boton del mouse derecho?  
+		// Evento, se cerro la ventana con la x de la esquina?? :O  
+		// Si, todo se le pregunta, una vez creado es el que sabe como se hace todo lo importante  
+		window.clear();
 
 		sf::Event event;
 
 		while (window.pollEvent(event))
 		{
 
-			initialize();
+			Update(event);
 
-			update(event);
-
-			draw();
 
 			// "close requested" event: we close the window
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+		
+		Draw(window);
 	}
-	
 	
 	close();
 }
 
-static void initialize()
+static void Initialize()
 {
-	//InitWindow(800, 600, "BOKITA");
-
-	//initializeMenu(gameState);
-	//initializeGame(gameState);
+	InitializeGame(gameState);
 
 	gameState.currentState = GAME_STATES::RUNNING;
 	gameState.nextState = GAME_STATES::RUNNING;
 }
 
 
-static void update(sf::Event event)
+static void Update(sf::Event event)
 {
 	switch (gameState.currentState)
 	{
@@ -69,10 +77,13 @@ static void update(sf::Event event)
 
 		break;
 	case Slimes::GAME_STATES::RUNNING:
+		
+		
 		if (event.type == sf::Event::KeyPressed)
 		{
 			std::cout << "the escape key was pressed" << std::endl;
 		}
+
 		if (event.type == sf::Event::MouseButtonPressed)
 		{
 			if (event.mouseButton.button == sf::Mouse::Right)
@@ -81,7 +92,15 @@ static void update(sf::Event event)
 				std::cout << "mouse x: " << event.mouseButton.x << std::endl;
 				std::cout << "mouse y: " << event.mouseButton.y << std::endl;
 			}
+			if (event.mouseButton.button == sf::Mouse::Left)
+			{
+				std::cout << "the left button was pressed" << std::endl;
+				std::cout << "mouse x: " << event.mouseButton.x << std::endl;
+				std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+			}
 		}
+
+
 
 		break;
 	case Slimes::GAME_STATES::GAMEOVER:
@@ -97,8 +116,10 @@ static void update(sf::Event event)
 	gameState.currentState = gameState.nextState;
 }
 
-static void draw()
+static void Draw(sf::RenderWindow& window)
 {
+	window.clear();
+	
 	switch (gameState.currentState)
 	{
 	case Slimes::GAME_STATES::MENU:
@@ -108,7 +129,7 @@ static void draw()
 
 		break;
 	case Slimes::GAME_STATES::RUNNING:
-
+		DrawGame(window);
 		break;
 	case Slimes::GAME_STATES::GAMEOVER:
 
@@ -119,6 +140,10 @@ static void draw()
 	default:
 		break;
 	}
+
+	window.display();
+
+
 }
 
 static void close()
